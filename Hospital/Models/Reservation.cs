@@ -11,8 +11,8 @@ namespace Hospital.Models
         [Key]
         public Guid Id { get; set; }
         public Guid ItemId { get; set; }
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public DateTime CreationTime = DateTime.Now;
         public Guid UserId { get; set; }
 
