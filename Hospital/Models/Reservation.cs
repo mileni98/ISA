@@ -13,7 +13,7 @@ namespace Hospital.Models
         public Guid ItemId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public DateTime CreationTime = DateTime.Now;
+        public DateTime CreationTime { get; private set; } = DateTime.Now;
         public Guid UserId { get; set; }
 
         [Timestamp]

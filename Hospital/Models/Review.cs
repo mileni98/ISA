@@ -10,7 +10,7 @@ namespace Hospital.Models
     {
         [Key]
         public Guid Id { get; set; }
-        public DateTime CreationTime = DateTime.Now;
+        public DateTime CreationTime { get; private set; } = DateTime.Now;
         public Guid ReviewedId { get; set; }
         public Guid UserId { get; set; }
         //Ranging from 1 to 5

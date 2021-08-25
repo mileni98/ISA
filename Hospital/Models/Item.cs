@@ -12,7 +12,7 @@ namespace Hospital.Models
         public Guid Id { get; set; }
         public double Price { get; set; }
         public Guid Pharmacy { get; set; }
-        public DateTime CreationTime = DateTime.Now;
+        public DateTime CreationTime { get; private set; } = DateTime.Now;
         public Guid ItemId { get; set; }
         public bool IsAvailable { get; set; }
 
