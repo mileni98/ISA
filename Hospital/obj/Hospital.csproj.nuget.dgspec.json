@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aleksa\\Documents\\GitHub\\Hospital\\Hospital\\Hospital\\Hospital.csproj": {}
+    "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\Hospital.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aleksa\\Documents\\GitHub\\Hospital\\Hospital\\Hospital\\Hospital.csproj": {
+    "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\Hospital.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aleksa\\Documents\\GitHub\\Hospital\\Hospital\\Hospital\\Hospital.csproj",
+        "projectUniqueName": "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\Hospital.csproj",
         "projectName": "Hospital",
-        "projectPath": "C:\\Users\\Aleksa\\Documents\\GitHub\\Hospital\\Hospital\\Hospital\\Hospital.csproj",
+        "projectPath": "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\Hospital.csproj",
         "packagesPath": "C:\\Users\\Aleksa\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aleksa\\Documents\\GitHub\\Hospital\\Hospital\\Hospital\\obj\\",
+        "outputPath": "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aleksa\\AppData\\Roaming\\NuGet\\NuGet.Config",

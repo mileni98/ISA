@@ -9,7 +9,12 @@ namespace Hospital.Models
     public class Drug
     {
         [Key]
-        public int Id { get; set; }
-
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        //csv formatted string
+        public string Ingredients { get; set; }
+        [Timestamp]
+        public byte[] RowVersion { get; set; }
     }
 }
