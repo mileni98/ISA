@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using Hospital.Data;
+using Hospital.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -14,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 namespace Hospital.Areas.Identity.Pages.Account
 {
@@ -41,6 +44,12 @@ namespace Hospital.Areas.Identity.Pages.Account
             _context = context;
             _emailSender = emailSender;
             _roleManager = roleManager;
+
+            using (StreamReader r = new StreamReader("./Data/emailCredentials.json"))
+            {
+                string json = r.ReadToEnd();
+                _emailSender = JsonConvert.DeserializeObject<EmailSender>(json);
+            }
         }
 
         [BindProperty]
