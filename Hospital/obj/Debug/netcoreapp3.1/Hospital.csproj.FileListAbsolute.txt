@@ -368,3 +368,4 @@ C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Hospital.
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Hospital.dll
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Hospital.pdb
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Hospital.genruntimeconfig.cache
+C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\bin\Debug\netcoreapp3.1\Data\emailCredentials.json
