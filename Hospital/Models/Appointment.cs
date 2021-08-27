@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    public class Appointment
+    public class Appointment : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
         public Guid PharmacyId { get; set; }
         public Guid PatientId { get; set; }
         public Guid MedicalWorkerId { get; set; }
@@ -18,7 +16,9 @@ namespace Hospital.Models
         public int Rating { get; set; }
         public double Price { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public override string GetName()
+        {
+            return "Appointment with starting time: " + StartTime.ToString();
+        }
     }
 }

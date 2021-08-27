@@ -6,17 +6,19 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    public class Review
+    public class Review : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
         public DateTime CreationTime { get; private set; } = DateTime.Now;
-        public Guid ReviewedId { get; set; }
-        public Guid UserId { get; set; }
+        public string ReviewedId { get; set; }
+        public string UserId { get; set; }
+        public string Comment { get; set; }
+        public string Description { get; set; }
         //Ranging from 1 to 5
-        public int Rate { get; set; }
+        public int Rating { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public override string GetName()
+        {
+            return "Review: " + Id.ToString();
+        }
     }
 }

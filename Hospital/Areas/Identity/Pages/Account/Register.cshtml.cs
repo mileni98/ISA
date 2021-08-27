@@ -115,10 +115,13 @@ namespace Hospital.Areas.Identity.Pages.Account
                     var usersCount = _userManager.Users.Count();
                     if (usersCount == 1)
                     {
-                        IdentityRole role = new IdentityRole();
-                        role.Name = "Admin";
-                        await _roleManager.CreateAsync(role);
-                        await _userManager.AddToRoleAsync(user, "Admin");
+                        if (_roleManager.Roles.ToList().Count() == 0)
+                        {
+                            IdentityRole role = new IdentityRole();
+                            role.Name = "Admin";
+                            await _roleManager.CreateAsync(role);
+                            await _userManager.AddToRoleAsync(user, "Admin");
+                        }
                     }
                     else if (Input.Role != null && Input.Role != "")
                     {
@@ -128,8 +131,8 @@ namespace Hospital.Areas.Identity.Pages.Account
                     {
                         await _userManager.AddToRoleAsync(user, "Patient");
                     }
-                    /*
-                    if(Input.Role == "Patient")
+                    
+                    /*if(Input.Role == "Patient")
                     {
                         Patient p = new Patient(user.Id);
                         _context.Patients.Add(p);

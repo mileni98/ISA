@@ -6,13 +6,14 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    public class Penalty
+    public class Penalty : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
         public Guid PatientId { get; set; }
+        public double Value { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public override string GetName()
+        {
+            return "Appointment with starting time: " + Id.ToString();
+        }
     }
 }

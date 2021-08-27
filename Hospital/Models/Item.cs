@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    public class Item
+    public class Item : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
         public double Price { get; set; }
         public Guid Pharmacy { get; set; }
         public DateTime CreationTime { get; private set; } = DateTime.Now;
@@ -19,6 +17,11 @@ namespace Hospital.Models
         public Item(bool isAvailable = true)
         {
             this.IsAvailable = isAvailable;
+        }
+
+        public override string GetName()
+        {
+            return "Item: " + Id.ToString();
         }
     }
 }

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Hospital.Models;
 
 namespace Hospital.Data
 {
@@ -12,5 +13,7 @@ namespace Hospital.Data
             : base(options)
         {
         }
+        public DbSet<Hospital.Models.Pharmacy> Pharmacy { get; set; }
+        public DbSet<Hospital.Models.Review> Review { get; set; }
     }
 }

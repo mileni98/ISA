@@ -6,17 +6,17 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    public class Reservation
+    public class Reservation : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
         public Guid ItemId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public DateTime CreationTime { get; private set; } = DateTime.Now;
         public Guid UserId { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public override string GetName()
+        {
+            return "Reservation with starting time: " + StartTime.ToString();
+        }
     }
 }

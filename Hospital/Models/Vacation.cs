@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    public class Vacation
+    public class Vacation : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
         public Guid WorkerId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
@@ -33,7 +31,9 @@ namespace Hospital.Models
             IsApproved = null;
         }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public override string GetName()
+        {
+            return "Vacation: " + Id.ToString();
+        }
     }
 }

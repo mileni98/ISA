@@ -17,20 +17,20 @@ namespace NHospital.Controllers
             this.roleManager = roleManager;
         }
 
-        //[Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
         public IActionResult Index()
         {
             var roles = roleManager.Roles.ToList();
             return View(roles);
         }
 
-        //[Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
         public IActionResult Create()
         {
             return View(new IdentityRole());
         }
 
-        //[Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
         [HttpPost]
         public async Task<IActionResult> Create(IdentityRole role)
         {

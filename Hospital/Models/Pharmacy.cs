@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    public class Pharmacy
+    public class Pharmacy : BaseModel
     {
-        [Key]
-        public Guid Id { get; set; }
         public string Name { get; set; }
         public string Location { get; set; }
 
-        [Timestamp]
-        public byte[] RowVersion { get; set; }
+        public override string GetName()
+        {
+            return "Pharmacy: " + Name + ", " + Location;
+        }
     }
 }
