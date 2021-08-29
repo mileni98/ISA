@@ -13,6 +13,6 @@ namespace Hospital.Models
         [Timestamp]
         public byte[] RowVersion { get; set; }
 
-        public abstract string GetName();
+        public abstract string ToString();
     }
 }
