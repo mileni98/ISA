@@ -1,4 +1,4 @@
-﻿@model Hospital.Models.WorkingContract
+﻿@model Hospital.Models.Vacation
 
 @{
     ViewData["Title"] = "Details";
@@ -7,20 +7,14 @@
 <h1>Details</h1>
 
 <div>
-    <h4>WorkingContract</h4>
+    <h4>Vacation</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            Worker
+            @Html.DisplayNameFor(model => model.WorkerId)
         </dt>
         <dd class = "col-sm-10">
-            @ViewData["workerUsername"]
-        </dd>
-        <dt class = "col-sm-2">
-            Pharmacy
-        </dt>
-        <dd class = "col-sm-10">
-            <a asp-controller="Pharmacies" asp-action="Details" asp-route-id="@Model.PharmacyId"> @ViewData["pharmacyName"]</a>
+            @Html.DisplayFor(model => model.WorkerId)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.StartTime)
@@ -35,23 +29,26 @@
             @Html.DisplayFor(model => model.EndTime)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WorkTimeStart)
+            @Html.DisplayNameFor(model => model.CreationTime)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WorkTimeStart)
+            @Html.DisplayFor(model => model.CreationTime)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.WorkTimeEnd)
+            @Html.DisplayNameFor(model => model.IsApproved)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.WorkTimeEnd)
+            @Html.DisplayFor(model => model.IsApproved)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ApprovalTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ApprovalTime)
         </dd>
     </dl>
 </div>
 <div>
-    @if (User.IsInRole("Admin"))
-    {
-        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
-    }
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>

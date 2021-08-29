@@ -9,27 +9,36 @@ using Hospital.Data;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
 using Hospital.Models.DTO;
+using Microsoft.AspNetCore.Identity;
 
 namespace Hospital.Controllers
 {
     public class WorkingContractsController : Controller
     {
-        private readonly ApplicationDbContext _context;
 
-        public WorkingContractsController(ApplicationDbContext context)
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
+
+        public WorkingContractsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: WorkingContracts
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Pharmacist,Doctor")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.WorkingContract.ToListAsync());
+            if (User.IsInRole("Admin"))
+                return View(await _context.WorkingContract.ToListAsync());
+
+            var id = (await _userManager.GetUserAsync(User)).Id;
+
+            return View(await _context.WorkingContract.Where(x => x.WorkerId == id).ToListAsync());
         }
 
         // GET: WorkingContracts/Details/5
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Doctor,Pharmacist")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
