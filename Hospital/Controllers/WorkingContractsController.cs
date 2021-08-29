@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Hospital.Data;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
+using Hospital.Models.DTO;
 
 namespace Hospital.Controllers
 {
@@ -43,6 +44,13 @@ namespace Hospital.Controllers
                 return NotFound();
             }
 
+            ViewData["pharmacyName"] = _context.Pharmacy.ToList()
+                                        .Where(x => x.Id == workingContract.PharmacyId)
+                                        .Select(x => x.Name).FirstOrDefault();
+            ViewData["workerUsername"] = _context.Users
+                                        .Where(x => x.Id == workingContract.WorkerId)
+                                        .Select(x => x.UserName).FirstOrDefault();
+
             return View(workingContract);
         }
 
@@ -50,8 +58,8 @@ namespace Hospital.Controllers
         [Authorize(Policy = "AdminPolicy")]
         public IActionResult Create()
         {
-            ViewData["pharmacies"] = _context.Pharmacy;
-            ViewData["workers"] = _context.Users;
+            ViewData["pharmacies"] = _context.Pharmacy.ToList();
+            ViewData["workers"] = _context.Users.ToList();
             return View();
         }
 
@@ -61,8 +69,9 @@ namespace Hospital.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "AdminPolicy")]
-        public async Task<IActionResult> Create([Bind("WorkerId,PharmacyId,StartTime,EndTime,WorkTimeStart,WorkTimeEnd,Id,RowVersion")] WorkingContract workingContract)
+        public async Task<IActionResult> Create([Bind("WorkerId,PharmacyId,StartTime,EndTime,WorkTimeStart,WorkTimeEnd,Id,RowVersion,WorkingTimeStart,WorkingTimeEnd")] WorkingContractDTO workingContractDto)
         {
+            var workingContract = new WorkingContract(workingContractDto);
             if (ModelState.IsValid)
             {
                 workingContract.Id = Guid.NewGuid();
@@ -96,8 +105,9 @@ namespace Hospital.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Policy = "AdminPolicy")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("WorkerId,PharmacyId,StartTime,EndTime,WorkTimeStart,WorkTimeEnd,Id,RowVersion")] WorkingContract workingContract)
+        public async Task<IActionResult> Edit(Guid id, [Bind("WorkerId,PharmacyId,StartTime,EndTime,WorkTimeStart,WorkTimeEnd,Id,RowVersion,WorkingTimeStart,WorkingTimeEnd")] WorkingContractDTO workingContractDto)
         {
+            var workingContract = new WorkingContract(workingContractDto);
             if (id != workingContract.Id)
             {
                 return NotFound();

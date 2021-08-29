@@ -401,3 +401,8 @@ C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Vie
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Reviews\Edit.cshtml.g.cs
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Reviews\Index.cshtml.g.cs
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Successful.cshtml.g.cs
+C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\WorkingContracts\Create.cshtml.g.cs
+C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\WorkingContracts\Delete.cshtml.g.cs
+C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\WorkingContracts\Details.cshtml.g.cs
+C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\WorkingContracts\Edit.cshtml.g.cs
+C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\WorkingContracts\Index.cshtml.g.cs

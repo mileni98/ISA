@@ -1,4 +1,4 @@
-﻿@model Hospital.Models.WorkingContract
+﻿@model Hospital.Models.DTO.WorkingContractDTO
 @using Microsoft.AspNetCore.Identity;
 
 @{
@@ -42,14 +42,14 @@
                 <span asp-validation-for="EndTime" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkTimeStart" class="control-label"></label>
-                <input asp-for="WorkTimeStart" class="form-control" />
-                <span asp-validation-for="WorkTimeStart" class="text-danger"></span>
+                <label asp-for="WorkingTimeStart" class="control-label"></label>
+                <input asp-for="WorkingTimeStart" class="form-control" min="0" max="23"/>
+                <span asp-validation-for="WorkingTimeStart" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WorkTimeEnd" class="control-label"></label>
-                <input asp-for="WorkTimeEnd" class="form-control" />
-                <span asp-validation-for="WorkTimeEnd" class="text-danger"></span>
+                <label asp-for="WorkingTimeEnd" class="control-label"></label>
+                <input asp-for="WorkingTimeEnd" class="form-control" min="0" max="23"/>
+                <span asp-validation-for="WorkingTimeEnd" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

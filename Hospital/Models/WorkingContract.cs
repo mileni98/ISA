@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Hospital.Models.DTO;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,22 @@ namespace Hospital.Models
             this.EndTime = DateTime.Now.AddYears(1);
             this.WorkTimeStart = new TimeSpan(8, 0, 0);
             this.WorkTimeEnd = new TimeSpan(16, 0, 0);
+        }
+
+        public WorkingContract(WorkingContract wc)
+        {
+            WorkerId = wc.WorkerId;
+            PharmacyId = wc.PharmacyId;
+            StartTime = wc.StartTime;
+            EndTime = wc.EndTime;
+            WorkTimeStart = wc.WorkTimeStart;
+            WorkTimeEnd = wc.WorkTimeEnd;
+        }
+
+        public WorkingContract(WorkingContractDTO workingContractDTO) : this((WorkingContract) workingContractDTO)
+        {
+            this.WorkTimeStart = new TimeSpan(workingContractDTO.WorkingTimeStart, 0, 0);
+            this.WorkTimeEnd = new TimeSpan(workingContractDTO.WorkingTimeEnd, 0, 0);
         }
 
         public WorkingContract(IdentityUser user, Pharmacy pharmacy, 
