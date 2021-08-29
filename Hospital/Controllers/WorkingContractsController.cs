@@ -22,14 +22,14 @@ namespace Hospital.Controllers
         }
 
         // GET: WorkingContracts
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.WorkingContract.ToListAsync());
         }
 
         // GET: WorkingContracts/Details/5
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -55,7 +55,7 @@ namespace Hospital.Controllers
         }
 
         // GET: WorkingContracts/Create
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["pharmacies"] = _context.Pharmacy.ToList();
@@ -68,7 +68,7 @@ namespace Hospital.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("WorkerId,PharmacyId,StartTime,EndTime,WorkTimeStart,WorkTimeEnd,Id,RowVersion,WorkingTimeStart,WorkingTimeEnd")] WorkingContractDTO workingContractDto)
         {
             var workingContract = new WorkingContract(workingContractDto);
@@ -83,7 +83,7 @@ namespace Hospital.Controllers
         }
 
         // GET: WorkingContracts/Edit/5
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -104,7 +104,7 @@ namespace Hospital.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id, [Bind("WorkerId,PharmacyId,StartTime,EndTime,WorkTimeStart,WorkTimeEnd,Id,RowVersion,WorkingTimeStart,WorkingTimeEnd")] WorkingContractDTO workingContractDto)
         {
             var workingContract = new WorkingContract(workingContractDto);
@@ -137,7 +137,7 @@ namespace Hospital.Controllers
         }
 
         // GET: WorkingContracts/Delete/5
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -158,7 +158,7 @@ namespace Hospital.Controllers
         // POST: WorkingContracts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var workingContract = await _context.WorkingContract.FindAsync(id);

@@ -12,6 +12,7 @@ namespace Hospital.Models
         public string Description { get; set; }
         //csv formatted string
         public string Ingredients { get; set; }
+        public string Notes { get; set; }
 
         public override string ToString()
         {

@@ -8,30 +8,25 @@ using Microsoft.EntityFrameworkCore;
 using Hospital.Data;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace Hospital.Controllers
 {
-    public class ReviewsController : Controller
+    public class DrugsController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<IdentityUser> _userManager;
 
-        public ReviewsController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
+        public DrugsController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
-        // GET: Reviews
-        [Authorize(Roles = "Admin")]
+        // GET: Drugs
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Review.ToListAsync());
+            return View(await _context.Drug.ToListAsync());
         }
 
-        // GET: Reviews/Details/5
-        [Authorize(Roles = "Admin")]
+        // GET: Drugs/Details/5
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -39,49 +34,43 @@ namespace Hospital.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Review
+            var drug = await _context.Drug
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (review == null)
+            if (drug == null)
             {
                 return NotFound();
             }
 
-            return View(review);
+            return View(drug);
         }
 
-        // GET: Reviews/Create/{id}
-        [Authorize]
-        public async Task<IActionResult> Create(string id, string description)
+        // GET: Drugs/Create
+        [Authorize(Roles = "Admin,Pharmacist")]
+        public IActionResult Create()
         {
-            Review review = new Review();
-            review.Description = description;
-            review.ReviewedId = id;
-            review.UserId = (await _userManager.GetUserAsync(User)).Id;
-            return View(review);
+            return View();
         }
 
-        // POST: Reviews/Create
+        // POST: Drugs/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize]
-        public async Task<IActionResult> Create([Bind("Id,CreationTime,ReviewedId,UserId,Comment,Rating,RowVersion,Description")] Review review)
+        [Authorize(Roles = "Admin,Pharmacist")]
+        public async Task<IActionResult> Create([Bind("Name,Description,Ingredients,Notes,Id,RowVersion")] Drug drug)
         {
             if (ModelState.IsValid)
             {
-                review.Id = Guid.NewGuid();
-                _context.Add(review);
+                drug.Id = Guid.NewGuid();
+                _context.Add(drug);
                 await _context.SaveChangesAsync();
-
-                return View("Successful");
+                return RedirectToAction(nameof(Index));
             }
-
-            return View("Successful");
+            return View(drug);
         }
 
-        // GET: Reviews/Edit/5
-        [Authorize(Roles = "Admin")]
+        // GET: Drugs/Edit/5
+        [Authorize(Roles = "Admin,Pharmacist")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -89,23 +78,23 @@ namespace Hospital.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Review.FindAsync(id);
-            if (review == null)
+            var drug = await _context.Drug.FindAsync(id);
+            if (drug == null)
             {
                 return NotFound();
             }
-            return View(review);
+            return View(drug);
         }
 
-        // POST: Reviews/Edit/5
+        // POST: Drugs/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,CreationTime,ReviewedId,UserId,Comment,Rating,RowVersion")] Review review)
+        [Authorize(Roles = "Admin,Pharmacist")]
+        public async Task<IActionResult> Edit(Guid id, [Bind("Name,Description,Ingredients,Notes,Id,RowVersion")] Drug drug)
         {
-            if (id != review.Id)
+            if (id != drug.Id)
             {
                 return NotFound();
             }
@@ -114,12 +103,12 @@ namespace Hospital.Controllers
             {
                 try
                 {
-                    _context.Update(review);
+                    _context.Update(drug);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ReviewExists(review.Id))
+                    if (!DrugExists(drug.Id))
                     {
                         return NotFound();
                     }
@@ -130,11 +119,11 @@ namespace Hospital.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(review);
+            return View(drug);
         }
 
-        // GET: Reviews/Delete/5
-        [Authorize(Roles = "Admin")]
+        // GET: Drugs/Delete/5
+        [Authorize(Roles = "Admin,Pharmacist")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -142,31 +131,31 @@ namespace Hospital.Controllers
                 return NotFound();
             }
 
-            var review = await _context.Review
+            var drug = await _context.Drug
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (review == null)
+            if (drug == null)
             {
                 return NotFound();
             }
 
-            return View(review);
+            return View(drug);
         }
 
-        // POST: Reviews/Delete/5
+        // POST: Drugs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin,Pharmacist")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var review = await _context.Review.FindAsync(id);
-            _context.Review.Remove(review);
+            var drug = await _context.Drug.FindAsync(id);
+            _context.Drug.Remove(drug);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ReviewExists(Guid id)
+        private bool DrugExists(Guid id)
         {
-            return _context.Review.Any(e => e.Id == id);
+            return _context.Drug.Any(e => e.Id == id);
         }
     }
 }

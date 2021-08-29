@@ -15,6 +15,7 @@ namespace Hospital.Models
         public DateTime EndTime { get; set; }
         public int Rating { get; set; }
         public double Price { get; set; }
+        public string Comment { get; set; }
 
         public override string ToString()
         {

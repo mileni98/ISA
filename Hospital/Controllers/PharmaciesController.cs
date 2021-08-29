@@ -68,7 +68,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Pharmacies/Create
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -79,7 +79,7 @@ namespace Hospital.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Location,RowVersion")] Pharmacy pharmacy)
         {
             if (ModelState.IsValid)
@@ -93,7 +93,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Pharmacies/Edit/5
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -114,7 +114,7 @@ namespace Hospital.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Location,RowVersion")] Pharmacy pharmacy)
         {
             if (id != pharmacy.Id)
@@ -146,7 +146,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Pharmacies/Delete/5
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -167,7 +167,7 @@ namespace Hospital.Controllers
         // POST: Pharmacies/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var pharmacy = await _context.Pharmacy.FindAsync(id);
