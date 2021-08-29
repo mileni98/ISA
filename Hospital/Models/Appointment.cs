@@ -16,7 +16,7 @@ namespace Hospital.Models
         public int Rating { get; set; }
         public double Price { get; set; }
 
-        public override string GetName()
+        public override string ToString()
         {
             return "Appointment with starting time: " + StartTime.ToString();
         }

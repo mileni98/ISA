@@ -31,7 +31,7 @@ namespace Hospital.Models
             IsApproved = null;
         }
 
-        public override string GetName()
+        public override string ToString()
         {
             return "Vacation: " + Id.ToString();
         }

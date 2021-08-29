@@ -19,7 +19,7 @@ namespace Hospital.Models
             this.IsAvailable = isAvailable;
         }
 
-        public override string GetName()
+        public override string ToString()
         {
             return "Item: " + Id.ToString();
         }

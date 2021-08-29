@@ -77,6 +77,6 @@
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     }
     <a asp-action="Index">Back to List</a>
-    <a asp-area="" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" asp-all-route-data='new Dictionary<string, string> { ["description"] = Model.GetName()}'>Rate</a>
+    <a asp-area="" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" asp-all-route-data='new Dictionary<string, string> { ["description"] = Model.ToString()}'>Rate</a>
 
 </div>

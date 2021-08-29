@@ -11,7 +11,7 @@ namespace Hospital.Models
         public Guid PatientId { get; set; }
         public double Value { get; set; }
 
-        public override string GetName()
+        public override string ToString()
         {
             return "Appointment with starting time: " + Id.ToString();
         }

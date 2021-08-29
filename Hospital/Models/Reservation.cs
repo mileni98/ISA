@@ -14,7 +14,7 @@ namespace Hospital.Models
         public DateTime CreationTime { get; private set; } = DateTime.Now;
         public Guid UserId { get; set; }
 
-        public override string GetName()
+        public override string ToString()
         {
             return "Reservation with starting time: " + StartTime.ToString();
         }

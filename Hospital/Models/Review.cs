@@ -16,7 +16,7 @@ namespace Hospital.Models
         //Ranging from 1 to 5
         public int Rating { get; set; }
 
-        public override string GetName()
+        public override string ToString()
         {
             return "Review: " + Id.ToString();
         }

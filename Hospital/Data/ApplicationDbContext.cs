@@ -15,5 +15,6 @@ namespace Hospital.Data
         }
         public DbSet<Hospital.Models.Pharmacy> Pharmacy { get; set; }
         public DbSet<Hospital.Models.Review> Review { get; set; }
+        public DbSet<Hospital.Models.WorkingContract> WorkingContract { get; set; }
     }
 }
