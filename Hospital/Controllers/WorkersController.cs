@@ -24,15 +24,56 @@ namespace Hospital.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet]
+        [Route("[controller]/[action]/{pharmacyId}/{role}")]
+        public async Task<IActionResult> WorkersForPharmacy(Guid pharmacyId, string role)
+        {
+            if(!_context.Pharmacy.Any(e => e.Id == pharmacyId))
+            {
+                return NotFound();
+            }
+
+            var roles = new List<string> { "Doctor", "Pharmacist" };
+            if (role != null)
+            {
+                roles = new List<string> { role };
+            }
+            var workersWithContract = _context.WorkingContract.Where(x => x.PharmacyId == pharmacyId).Select(x => x.WorkerId).ToList();
+            var workers = _context.Users.Where(x => workersWithContract.Contains(x.Id)).ToList();
+            ViewData["pharmacyName"] = _context.Pharmacy.Where(x => x.Id == pharmacyId).Select(x => x.Name).FirstOrDefault();
+            //TODO: Test
+            return View("Index", ShowWorkers(roles, workers));
+        }
+
+        [HttpGet]
+        [Route("[controller]/[action]/{role}")]
+        public async Task<IActionResult> WorkersForRole(string role)
+        {
+            return View("Index", ShowWorkers(new List<string> { role }));
+        }
+
         // GET: 
         public async Task<IActionResult> Index()
         {
-            var users = await _context.Users.ToListAsync();
+            return View(ShowWorkers(new List<string> { "Doctor", "Pharmacist" }));
+        }
+
+        public List<WorkerDTO> ShowWorkers(List<string> Roles, List<IdentityUser> users = null)
+        {
+            if(users == null)
+            {
+                users = await _context.Users.ToListAsync();
+            }
             var medWorkers = new List<WorkerDTO>();
             foreach(var user in users)
             {
-                if((await _userManager.IsInRoleAsync(user,"Doctor")) 
-                    || await _userManager.IsInRoleAsync(user, "Pharmacist"))
+                bool isInRole = false;
+                foreach(var role in Roles)
+                {
+                    isInRole = isInRole || (await _userManager.IsInRoleAsync(user, role));
+                }
+
+                if(isInRole)
                 {
                     WorkerDTO worker = new WorkerDTO();
                     worker.Name = user.UserName;
@@ -63,7 +104,7 @@ namespace Hospital.Controllers
                 }
             }
 
-            return View(medWorkers);
+            return medWorkers;
         }
 
         // GET: Workers/Details/5
