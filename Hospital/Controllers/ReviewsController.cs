@@ -57,6 +57,20 @@ namespace Hospital.Controllers
             review.Description = description;
             review.ReviewedId = id;
             review.UserId = (await _userManager.GetUserAsync(User)).Id;
+
+            var user = (await _userManager.GetUserAsync(User));
+            //check if user had an appointment with med worker before rating
+            if (description.ToUpper().Contains("DOCTOR")
+                || description.ToUpper().Contains("PHARMACIST"))
+            {
+                if(_context.Appointment
+                    .Where(x => x.MedicalWorkerId == id && x.PatientId == user.Id)
+                    .ToList().Count == 0)
+                {
+                    return View("ErrorMessage", "You didn't have any appointments with medical worker.");
+                }
+            }
+
             return View(review);
         }
 

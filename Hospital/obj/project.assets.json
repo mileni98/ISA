@@ -9261,19 +9261,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Aleksa\\.nuget\\packages\\": {}
+    "C:\\Users\\Korisnik\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\Hospital.csproj",
+      "projectUniqueName": "D:\\Fakultet\\Semestar 7\\Internet softverske arhitekture\\ISA projekat\\isa\\Hospital\\Hospital.csproj",
       "projectName": "Hospital",
-      "projectPath": "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\Hospital.csproj",
-      "packagesPath": "C:\\Users\\Aleksa\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aleksa\\Documents\\GitHub\\hosp\\Hospital\\obj\\",
+      "projectPath": "D:\\Fakultet\\Semestar 7\\Internet softverske arhitekture\\ISA projekat\\isa\\Hospital\\Hospital.csproj",
+      "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
+      "outputPath": "D:\\Fakultet\\Semestar 7\\Internet softverske arhitekture\\ISA projekat\\isa\\Hospital\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Aleksa\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9344,12 +9344,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[3.1.13, 3.1.13]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9358,7 +9352,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.104\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

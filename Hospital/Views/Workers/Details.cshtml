@@ -44,6 +44,7 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a href="javascript:void(0);" onclick="history.go(-1);">Back to List</a>
+    <!--a asp-action="Index">Back to List </a-->
     <a asp-area="" asp-controller="Reviews" asp-action="Create" asp-route-id="@Model.Id" asp-all-route-data='new Dictionary<string, string> { ["description"] = Model.ToString(), ["id"] = Model.Id}'>Rate</a>
 </div>

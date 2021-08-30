@@ -411,3 +411,13 @@ C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Vie
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Drugs\Details.cshtml.g.cs
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Drugs\Edit.cshtml.g.cs
 C:\Users\Aleksa\Documents\GitHub\hosp\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Drugs\Index.cshtml.g.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.csproj.AssemblyReference.cache
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.AssemblyInfoInputs.cache
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.AssemblyInfo.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.csproj.CoreCompileInputs.cache
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.MvcApplicationPartsAssemblyInfo.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.MvcApplicationPartsAssemblyInfo.cache
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.RazorAssemblyInfo.cache
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.RazorAssemblyInfo.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.dll
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.pdb

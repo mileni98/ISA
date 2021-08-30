@@ -9,7 +9,7 @@ namespace Hospital.Models
     public class Appointment : BaseModel
     {
         public Guid PharmacyId { get; set; }
-        public string PatientId { get; set; }
+        public string PatientId { get; set; } = "";
         public string MedicalWorkerId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

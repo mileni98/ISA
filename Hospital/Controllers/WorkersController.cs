@@ -25,8 +25,8 @@ namespace Hospital.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/[action]/{pharmacyId}/{role}")]
-        public async Task<IActionResult> WorkersForPharmacy(Guid pharmacyId, string role)
+        [Route("[controller]/[action]/{pharmacyId}/{role?}")]
+        public async Task<IActionResult> WorkersForPharmacy(Guid pharmacyId, string role = "")
         {
             if(!_context.Pharmacy.Any(e => e.Id == pharmacyId))
             {
@@ -34,36 +34,41 @@ namespace Hospital.Controllers
             }
 
             var roles = new List<string> { "Doctor", "Pharmacist" };
-            if (role != null)
+
+            if (role != "")
             {
                 roles = new List<string> { role };
+                ViewData["profession"] = role;
             }
+
             var workersWithContract = _context.WorkingContract.Where(x => x.PharmacyId == pharmacyId).Select(x => x.WorkerId).ToList();
             var workers = _context.Users.Where(x => workersWithContract.Contains(x.Id)).ToList();
+           
             ViewData["pharmacyName"] = _context.Pharmacy.Where(x => x.Id == pharmacyId).Select(x => x.Name).FirstOrDefault();
             //TODO: Test
-            return View("Index", ShowWorkers(roles, workers));
+            return View("Index", await ShowWorkers(roles, workers));
         }
 
         [HttpGet]
         [Route("[controller]/[action]/{role}")]
         public async Task<IActionResult> WorkersForRole(string role)
         {
-            return View("Index", ShowWorkers(new List<string> { role }));
+            return View("Index", await ShowWorkers(new List<string> { role }));
         }
 
         // GET: 
         public async Task<IActionResult> Index()
         {
-            return View(ShowWorkers(new List<string> { "Doctor", "Pharmacist" }));
+            return View(await ShowWorkers(new List<string> { "Doctor", "Pharmacist" }));
         }
 
-        public List<WorkerDTO> ShowWorkers(List<string> Roles, List<IdentityUser> users = null)
+        public async Task<List<WorkerDTO>> ShowWorkers(List<string> Roles, List<IdentityUser> users = null)
         {
             if(users == null)
             {
                 users = await _context.Users.ToListAsync();
             }
+
             var medWorkers = new List<WorkerDTO>();
             foreach(var user in users)
             {
