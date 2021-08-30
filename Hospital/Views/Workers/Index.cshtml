@@ -1,0 +1,54 @@
+﻿@model IEnumerable<WorkerDTO>
+@using Microsoft.AspNetCore.Identity;
+@using Hospital.Models.DTO;
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+    if (ViewData["profession"] == null)
+        ViewData["profession"] = "";
+}
+
+<h1>Medical Workers @ViewData["profession"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                UserName
+            </th>
+            <th>
+                Profession
+            </th>
+            <th>
+                Rating / Number of ratings
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Profession)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rating)
+                (@Html.DisplayFor(modelItem => item.NumberOfRatings) ratings)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
