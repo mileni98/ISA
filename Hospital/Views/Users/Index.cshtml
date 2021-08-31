@@ -1,0 +1,40 @@
+﻿@model IEnumerable<UserDTO>
+@using Microsoft.AspNetCore.Identity;
+@using Hospital.Models.DTO;
+
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All users @ViewData["profession"]</h1>
+<table id="smartTable" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>
+                Email
+            </th>
+            <th>
+                Profession
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Role)
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

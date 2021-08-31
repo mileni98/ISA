@@ -28,7 +28,7 @@ namespace Hospital.Controllers
         [Route("[controller]/[action]/{pharmacyId}/{role?}")]
         public async Task<IActionResult> WorkersForPharmacy(Guid pharmacyId, string role = "")
         {
-            if(!_context.Pharmacy.Any(e => e.Id == pharmacyId))
+            if (!_context.Pharmacy.Any(e => e.Id == pharmacyId))
             {
                 return NotFound();
             }
@@ -43,7 +43,7 @@ namespace Hospital.Controllers
 
             var workersWithContract = _context.WorkingContract.Where(x => x.PharmacyId == pharmacyId).Select(x => x.WorkerId).ToList();
             var workers = _context.Users.Where(x => workersWithContract.Contains(x.Id)).ToList();
-           
+
             ViewData["pharmacyName"] = _context.Pharmacy.Where(x => x.Id == pharmacyId).Select(x => x.Name).FirstOrDefault();
             //TODO: Test
             return View("Index", await ShowWorkers(roles, workers));
@@ -64,27 +64,27 @@ namespace Hospital.Controllers
 
         public async Task<List<WorkerDTO>> ShowWorkers(List<string> Roles, List<IdentityUser> users = null)
         {
-            if(users == null)
+            if (users == null)
             {
                 users = await _context.Users.ToListAsync();
             }
 
             var medWorkers = new List<WorkerDTO>();
-            foreach(var user in users)
+            foreach (var user in users)
             {
                 bool isInRole = false;
-                foreach(var role in Roles)
+                foreach (var role in Roles)
                 {
                     isInRole = isInRole || (await _userManager.IsInRoleAsync(user, role));
                 }
 
-                if(isInRole)
+                if (isInRole)
                 {
                     WorkerDTO worker = new WorkerDTO();
                     worker.Name = user.UserName;
                     worker.Id = user.Id;
-                    
-                    if(_context.Review
+
+                    if (_context.Review
                         .Where(x => x.ReviewedId == user.Id.ToString()).ToList().Count == 0)
                     {
                         worker.Rating = 0;
@@ -92,7 +92,7 @@ namespace Hospital.Controllers
                     }
                     else
                     {
-                        worker.Rating = 
+                        worker.Rating =
                                             Math.Round(_context.Review
                                             .Where(x => x.ReviewedId == user.Id.ToString())
                                             .Select(x => x.Rating)
@@ -102,9 +102,9 @@ namespace Hospital.Controllers
                                             .Where(x => x.ReviewedId == user.Id.ToString())
                                             .Count();
                     }
-                    
+
                     worker.Profession = (await _userManager.IsInRoleAsync(user, "Pharmacist")) ? "Pharmacist" : "Doctor";
-                    
+
                     medWorkers.Add(worker);
                 }
             }
