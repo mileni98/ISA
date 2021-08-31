@@ -1,21 +1,24 @@
 ﻿@model Hospital.Models.Appointment
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create for medical expert";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
-<h4>Appointment</h4>
+<h4>Appointment for @ViewData["expertUsername"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="PharmacyId" class="control-label"></label>
-                <input asp-for="PharmacyId" class="form-control" />
-                <span asp-validation-for="PharmacyId" class="text-danger"></span>
+                <select asp-for="PharmacyId" class="form-control">
+                    @foreach (var item in (List<Pharmacy>)@ViewData["pharmacies"])
+                    {
+                        <option value=@item.Id class="option">@item.Name</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label asp-for="PatientId" class="control-label"></label>
@@ -43,13 +46,7 @@
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Comment" class="control-label"></label>
-                <input asp-for="Comment" class="form-control" />
-                <span asp-validation-for="Comment" class="text-danger"></span>
-            </div>
-            <input type="hidden" asp-for="Id" />
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
     </div>

@@ -35,6 +35,19 @@ namespace Hospital.Controllers
             return View(appointments);
         }
 
+        // GET: Appointments/GetFreeAppointments/
+        [HttpGet]
+        [Route("[controller]/[action]")]
+        [Authorize]
+        public async Task<IActionResult> GetFreeAppointments()
+        {
+            var appointments = _context.Appointment
+                                .Where(x => x.PatientId == null)
+                                .ToList();
+
+            return View("Index", appointments);
+        }
+
         // GET: Appointments/GetFreeAppointments/5/5?
         [HttpGet]
         [Route("[controller]/[action]/{pharmacyId}/{workerId?}")]
@@ -46,7 +59,7 @@ namespace Hospital.Controllers
 
             var appointments = _context.Appointment
                                 .Where(x => x.PharmacyId.ToString() == pharmacyId
-                                            && x.PatientId == "")
+                                            && x.PatientId == null)
                                 .ToList();
 
             if (workerId == "")
@@ -55,7 +68,7 @@ namespace Hospital.Controllers
                                 .Where(x => x.MedicalWorkerId == workerId)
                                 .ToList();
             }
-            return View(appointments);
+            return View("Index", appointments);
         }
 
         // GET: Appointments/GetAllAppointments/5?
@@ -65,14 +78,15 @@ namespace Hospital.Controllers
         public async Task<IActionResult> GetAllAppointments(string pharmacyId = "")
         {
             if(pharmacyId == "")
-                return View(_context.Appointment.ToList());
+                return View("Index", _context.Appointment.ToList());
 
-            return View(_context.Appointment
+            return View("Index", _context.Appointment
                                 .Where(x => x.PharmacyId.ToString() == pharmacyId)
                                 .ToList());
         }
 
         // GET: Appointments/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(Guid? id)
         {
             if (id == null)
@@ -90,10 +104,39 @@ namespace Hospital.Controllers
             return View(appointment);
         }
 
-        // GET: Appointments/Create
-        public IActionResult Create()
+        // GET: Appointments/CreateForMedExpert/5
+        [Authorize(Roles = "Admin,Doctor,Pharmacist")]
+        public async Task<IActionResult> CreateForMedExpert(string id)
         {
-            return View();
+            var medExpert = await _userManager.FindByIdAsync(id);
+
+            if(!(await _userManager.IsInRoleAsync(medExpert, "Doctor")) &&
+                !(await _userManager.IsInRoleAsync(medExpert, "Pharmacist")))
+            {
+                return View("ErrorMessage", "User is not a medical expert");
+            }
+
+            var pharmaciesWithContracts = await _context.WorkingContract
+                                        .Where(x => x.WorkerId == id)
+                                        .Select(x => x.PharmacyId)
+                                        .ToListAsync();
+
+            if (pharmaciesWithContracts.Count == 0)
+            {
+                return View("ErrorMessage", "Medical expert has no contracts.");
+            }
+
+            var pharmacies = await _context.Pharmacy
+                                        .Where(x => pharmaciesWithContracts.Contains(x.Id))
+                                        .ToListAsync();
+
+            ViewData["expertId"] = id;
+            ViewData["expertUsername"] = medExpert.UserName;
+            ViewData["pharmacies"] = pharmacies;
+
+            Appointment appointment = new Appointment();
+            appointment.MedicalWorkerId = id;
+            return View(appointment);
         }
 
         // POST: Appointments/Create
@@ -116,6 +159,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Appointments/Edit/5
+        [Authorize(Roles = "Admin,Doctor,Pharmacist")]
         public async Task<IActionResult> Edit(Guid? id)
         {
             if (id == null)
@@ -131,11 +175,44 @@ namespace Hospital.Controllers
             return View(appointment);
         }
 
+        // GET: Appointments/TakeAppointment/5
+        [Authorize(Roles = "Patient")]
+        public async Task<IActionResult> TakeAppointment(Guid? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var appointment = await _context.Appointment.FindAsync(id);
+
+            appointment.PatientId = (await _userManager.GetUserAsync(User)).Id;
+            
+            try
+            {
+                _context.Update(appointment);
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!AppointmentExists(appointment.Id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return View("Successful");
+        }
+
         // POST: Appointments/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Doctor,Pharmacist")]
         public async Task<IActionResult> Edit(Guid id, [Bind("PharmacyId,PatientId,MedicalWorkerId,StartTime,EndTime,Rating,Price,Comment,Id,RowVersion")] Appointment appointment)
         {
             if (id != appointment.Id)
@@ -167,6 +244,7 @@ namespace Hospital.Controllers
         }
 
         // GET: Appointments/Delete/5
+        [Authorize(Roles = "Admin,Patient")]
         public async Task<IActionResult> Delete(Guid? id)
         {
             if (id == null)
@@ -187,6 +265,7 @@ namespace Hospital.Controllers
         // POST: Appointments/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,Patient")]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var appointment = await _context.Appointment.FindAsync(id);

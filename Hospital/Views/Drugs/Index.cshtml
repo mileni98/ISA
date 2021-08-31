@@ -13,9 +13,7 @@
 
 <h1>Index</h1>
 
-@if ((SignInManager.IsSignedIn(User) &&
-   ((await AuthorizationService.AuthorizeAsync(User, null, "AdminPolicy")).Succeeded ||
-   (await AuthorizationService.AuthorizeAsync(User, null, "PharmacistPolicy")).Succeeded)))
+@if (User.IsInRole("Admin") || User.IsInRole("Pharmacist"))
 {
     <p>
         <a asp-action="Create">Create New</a>
@@ -56,9 +54,7 @@
                     @Html.DisplayFor(modelItem => item.Notes)
                 </td>
                 <td>
-                    @if ((SignInManager.IsSignedIn(User) &&
-                    ((await AuthorizationService.AuthorizeAsync(User, null, "AdminPolicy")).Succeeded ||
-                      (await AuthorizationService.AuthorizeAsync(User, null, "PharmacistPolicy")).Succeeded)))
+                    @if (User.IsInRole("Admin") || User.IsInRole("Pharmacist"))
                     {
                         <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
                         <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>

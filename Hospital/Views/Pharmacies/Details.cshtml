@@ -45,8 +45,9 @@
         </dd>
     </dl>
 
-    <a asp-area="" asp-controller="Workers" asp-action="WorkersForPharmacy" asp-route-id="@Model.Id">See all workers</a>
-    <a asp-area="" asp-controller="Workers" asp-action="WorkersForPharmacy" asp-all-route-data='new Dictionary<string, string> { ["role"] = "Doctor", ["id"] = Model.Id.ToString()}'>See doctors</a>
+    <a asp-area="" asp-controller="Workers" asp-action="WorkersForPharmacy" asp-route-id="@Model.Id">See all workers</a><br />
+    <a asp-area="" asp-controller="Appointments" asp-action="GetFreeAppointments" asp-route-id="@Model.Id">See all free appointments</a><br />
+    <a asp-area="" asp-controller="Workers" asp-action="WorkersForPharmacy" asp-all-route-data='new Dictionary<string, string> { ["role"] = "Doctor", ["id"] = Model.Id.ToString()}'>See doctors</a><br />
     <a asp-area="" asp-controller="Workers" asp-action="WorkersForPharmacy" asp-all-route-data='new Dictionary<string, string> { ["role"] = "Pharmacist", ["id"] = Model.Id.ToString()}'>See pharmacists</a>
 
     <div name="GoogleMap">

@@ -44,9 +44,7 @@
     </dl>
 </div>
 <div>
-    @if ((SignInManager.IsSignedIn(User) &&
-                     ((await AuthorizationService.AuthorizeAsync(User, null, "AdminPolicy")).Succeeded ||
-                       (await AuthorizationService.AuthorizeAsync(User, null, "PharmacistPolicy")).Succeeded)))
+    @if (User.IsInRole("Admin") || User.IsInRole("Pharmacist"))
     {
         <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
     }
