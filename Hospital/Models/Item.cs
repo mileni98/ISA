@@ -9,15 +9,10 @@ namespace Hospital.Models
     public class Item : BaseModel
     {
         public double Price { get; set; }
-        public Guid Pharmacy { get; set; }
+        public Guid PharmacyId { get; set; }
         public DateTime CreationTime { get; private set; } = DateTime.Now;
         public Guid ItemId { get; set; }
-        public bool IsAvailable { get; set; }
-
-        public Item(bool isAvailable = true)
-        {
-            this.IsAvailable = isAvailable;
-        }
+        public bool IsAvailable { get; set; } = true;
 
         public override string ToString()
         {

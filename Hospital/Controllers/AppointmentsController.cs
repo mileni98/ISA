@@ -48,6 +48,75 @@ namespace Hospital.Controllers
             return View("Index", appointments);
         }
 
+        // GET: Appointments/GetPharmaciesWithFreeAppointment
+        [Authorize(Roles = "Patient")]
+        public async Task<IActionResult> GetPharmaciesWithFreeAppointment()
+        {
+            ViewData["pharmacies"] = _context.Pharmacy.ToList();
+            return View(new Appointment());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Patient")]
+        public async Task<IActionResult> CreateAppointmentRequest([Bind("PharmacyId,PatientId,MedicalWorkerId,StartTime,EndTime,Rating,Price,Comment,Id,RowVersion")] Appointment appointment)
+        {
+            //patients dont get to choose the length of the appointment
+            appointment.EndTime = appointment.StartTime.AddMinutes(30);
+
+            var medExpertsIds = _context.WorkingContract.
+                Where(x => x.PharmacyId == appointment.PharmacyId)
+                .Select(x => x.WorkerId)
+                .ToList();
+
+            var freeMedExperts = _context.Users
+                                .Where(x => medExpertsIds.Contains(x.Id)).ToList();
+
+            foreach(var medExpert in freeMedExperts.ToList())
+            {
+                var appointments = _context.Appointment
+                                .Where(x => x.MedicalWorkerId == medExpert.Id)
+                                .ToList();
+
+                bool isFree = true;
+
+                foreach(var app in appointments)
+                {
+                    if(IsOverlapping(app, appointment))
+                    {
+                        isFree = false;
+                        break;
+                    }
+                }
+
+                if (!isFree)
+                    freeMedExperts.Remove(medExpert);
+
+                if ((await _userManager.GetRolesAsync(medExpert)).FirstOrDefault() == "Admin")
+                    freeMedExperts.Remove(medExpert);
+            }
+
+            if(freeMedExperts.Count == 0)
+            {
+                return View("ErrorMessage", "No free med experts for this appointment");
+            }
+
+            ViewData["freeMedExperts"] = freeMedExperts;
+            appointment.PatientId = (await _userManager.GetUserAsync(User)).Id;
+
+            return View("Create", appointment);
+        }
+
+        public bool IsOverlapping(Appointment a1, Appointment a2)
+        {
+            if (a1.StartTime <= a2.StartTime && a1.EndTime >= a2.EndTime)
+                return true;
+            if (a1.StartTime >= a2.StartTime && a1.EndTime <= a2.EndTime)
+                return true;
+
+            return false;
+        }
+
         // GET: Appointments/GetFreeAppointments/5/5?
         [HttpGet]
         [Route("[controller]/[action]/{pharmacyId}/{workerId?}")]
@@ -144,7 +213,7 @@ namespace Hospital.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public async Task<IActionResult> Create([Bind("PharmacyId,PatientId,MedicalWorkerId,StartTime,EndTime,Rating,Price,Comment,Id,RowVersion")] Appointment appointment)
         {
             //TODO: create free appointments for medexpert
