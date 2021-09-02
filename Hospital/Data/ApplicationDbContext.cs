@@ -23,5 +23,6 @@ namespace Hospital.Data
         public DbSet<Hospital.Models.Offer> Offer { get; set; }
         public DbSet<Hospital.Models.Reservation> Reservation { get; set; }
         public DbSet<Hospital.Models.Penalty> Penalty { get; set; }
+        public DbSet<Hospital.Models.Sale> Sale { get; set; }
     }
 }
