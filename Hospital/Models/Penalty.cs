@@ -8,12 +8,12 @@ namespace Hospital.Models
 {
     public class Penalty : BaseModel
     {
-        public Guid PatientId { get; set; }
+        public string PatientId { get; set; }
         public double Value { get; set; }
 
         public override string ToString()
         {
-            return "Appointment with starting time: " + Id.ToString();
+            return "PatientId: " + PatientId.ToString();
         }
     }
 }

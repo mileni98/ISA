@@ -9,10 +9,10 @@ namespace Hospital.Models
     public class Reservation : BaseModel
     {
         public Guid ItemId { get; set; }
-        public DateTime StartTime { get; set; }
-        public DateTime EndTime { get; set; }
+        public DateTime StartTime { get; set; } = DateTime.Now;
         public DateTime CreationTime { get; private set; } = DateTime.Now;
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
+        public Guid PharmacyId { get; set; }
 
         public override string ToString()
         {
