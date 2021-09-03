@@ -98,7 +98,8 @@ namespace Hospital.Controllers
 
             if(freeMedExperts.Count == 0)
             {
-                return View("ErrorMessage", "No free med experts for this appointment");
+                ViewData["errorMessage"] = "No free med experts for this appointment";
+                return View("ErrorMessage");
             }
 
             ViewData["freeMedExperts"] = freeMedExperts;
@@ -182,7 +183,8 @@ namespace Hospital.Controllers
             if(!(await _userManager.IsInRoleAsync(medExpert, "Doctor")) &&
                 !(await _userManager.IsInRoleAsync(medExpert, "Pharmacist")))
             {
-                return View("ErrorMessage", "User is not a medical expert");
+                ViewData["errorMessage"] = "User is not a medical expert";
+                return View("ErrorMessage");
             }
 
             var pharmaciesWithContracts = await _context.WorkingContract
@@ -192,7 +194,8 @@ namespace Hospital.Controllers
 
             if (pharmaciesWithContracts.Count == 0)
             {
-                return View("ErrorMessage", "Medical expert has no contracts.");
+                ViewData["errorMessage"] = "Medical expert has no contracts.";
+                return View("ErrorMessage");
             }
 
             var pharmacies = await _context.Pharmacy

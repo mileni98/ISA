@@ -67,7 +67,8 @@ namespace Hospital.Controllers
                     .Where(x => x.MedicalWorkerId == id && x.PatientId == user.Id)
                     .ToList().Count == 0)
                 {
-                    return View("ErrorMessage", "You didn't have any appointments with medical worker.");
+                    ViewData["errorMessage"] = "You didn't have any appointments with medical worker.";
+                    return View("ErrorMessage");
                 }
             }
 

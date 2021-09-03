@@ -694,3 +694,9 @@ D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital
 D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.Views.pdb
 D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.csproj.CopyComplete
 D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Hospital.genruntimeconfig.cache
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Chart\Index.cshtml.g.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Create.cshtml.g.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Delete.cshtml.g.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Details.cshtml.g.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Edit.cshtml.g.cs
+D:\Fakultet\Semestar 7\Internet softverske arhitekture\ISA projekat\isa\Hospital\obj\Debug\netcoreapp3.1\Razor\Views\Sales\Index.cshtml.g.cs
